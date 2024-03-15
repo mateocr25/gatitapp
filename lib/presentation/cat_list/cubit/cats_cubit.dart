@@ -45,4 +45,23 @@ class CatsCubit extends Cubit<CatsState> {
       ),
     );
   }
+
+  Future<void> searchCat(String name) async {
+    emit(
+      state.copyWith(
+        status: CatsStatus.loading,
+      ),
+    );
+
+    final newList = state.cats
+        ?.where((cat){
+          final catName = cat.name.toLowerCase();
+         return catName.contains(name.toLowerCase());
+        })
+        .toList();
+    emit(state.copyWith(
+      status: CatsStatus.loaded,
+      cats: newList,
+    ));
+  }
 }
