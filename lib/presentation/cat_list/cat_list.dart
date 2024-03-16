@@ -36,7 +36,7 @@ class _CatListState extends State<CatList> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: const Text('Gatitap', style: TextStyle(color: Colors.white),),
+        title: const Text('Gatitapp', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
         centerTitle: true,
       ),
       body: BlocProvider(
@@ -97,22 +97,27 @@ class _CatListState extends State<CatList> {
                             },
                           ),
                           const SizedBox(
-                            height: 5,
+                            height: 40,
                           ),
                           Flexible(
-                            child: ListView.separated(
-                              physics: const BouncingScrollPhysics(),
-                              itemCount: state.cats?.length ?? 0,
-                              itemBuilder: (context, index) {
-                                final item = state.cats![index];
-                                return CatCard(data: item);
+                            child: RefreshIndicator(
+                              onRefresh: () {
+                                return BlocProvider.of<CatsCubit>(context).fetchData();
                               },
-                              separatorBuilder:
-                                  (BuildContext context, int index) {
-                                return const SizedBox(
-                                  height: 20,
-                                );
-                              },
+                              child: ListView.separated(
+                                physics: const BouncingScrollPhysics(),
+                                itemCount: state.cats?.length ?? 0,
+                                itemBuilder: (context, index) {
+                                  final item = state.cats![index];
+                                  return CatCard(data: item);
+                                },
+                                separatorBuilder:
+                                    (BuildContext context, int index) {
+                                  return const SizedBox(
+                                    height: 20,
+                                  );
+                                },
+                              ),
                             ),
                           ),
                         ],
