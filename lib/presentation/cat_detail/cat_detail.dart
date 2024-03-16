@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:gatitapp/domain/entities/cats.dart';
 import 'package:go_router/go_router.dart';
@@ -31,29 +32,31 @@ class CatDetailPage extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            Container(
-              height: size.height * 0.55,
-              width: size.width * 0.95,
-              clipBehavior: Clip.hardEdge,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(15),
-                border: Border.all(
-                  color: Colors.grey,
-                  width: 1,
+            Expanded(
+              child: Container(
+                height: size.height * 0.6,
+                width: size.width * 0.95,
+                clipBehavior: Clip.hardEdge,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(15),
+                  border: Border.all(
+                    color: Colors.grey,
+                    width: 1,
+                  ),
                 ),
-              ),
-              child: Image.network(
-                height: size.height * 0.4,
-                width: size.width * 0.8,
-                fit: BoxFit.fill,
-                catData.imageUrl,
-                errorBuilder: (context, _, stackTrace) {
-                  return const SizedBox(
-                    height: 190,
-                    width: 180,
-                    child: Icon(Icons.catching_pokemon),
-                  );
-                },
+                child: Image.network(
+                  height: size.height * 0.4,
+                  width: size.width * 0.8,
+                  fit: BoxFit.fill,
+                  catData.imageUrl,
+                  errorBuilder: (context, _, stackTrace) {
+                    return const SizedBox(
+                      height: 190,
+                      width: 180,
+                      child: Icon(Icons.catching_pokemon),
+                    );
+                  },
+                ),
               ),
             ),
             const SizedBox(height: 10,),

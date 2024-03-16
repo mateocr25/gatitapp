@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
-import 'package:gatitapp/core/use_case.dart';
 import 'package:gatitapp/domain/entities/cats.dart';
 import 'package:gatitapp/domain/repository/cat_repository.dart';
+import 'package:gatitapp/utils/use_case.dart';
 
 class FetchCatsUseCase extends UseCase<List<Cat>, Unit>{
 

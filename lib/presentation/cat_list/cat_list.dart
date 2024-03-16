@@ -7,11 +7,30 @@ import 'package:gatitapp/presentation/cat_list/cubit/cats_cubit.dart';
 import 'package:gatitapp/presentation/cat_list/cubit/cats_status.dart';
 import 'package:go_router/go_router.dart';
 
-class CatList extends StatelessWidget {
+class CatList extends StatefulWidget {
   const CatList({super.key});
 
   static const routeName = '/';
 
+  @override
+  State<CatList> createState() => _CatListState();
+}
+
+class _CatListState extends State<CatList> {
+
+  late TextEditingController searchController;
+
+  @override
+  void initState() {
+    searchController = TextEditingController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,9 +84,17 @@ class CatList extends StatelessWidget {
                       padding: const EdgeInsets.all(16),
                       child: Column(
                         children: [
-                          const TextField(
+                           TextField(
                             decoration:
-                                InputDecoration(prefixIcon: Icon(Icons.search)),
+                                const InputDecoration(prefixIcon: Icon(Icons.search)),
+                            onChanged: (name){
+                              if(name.isEmpty){
+                                BlocProvider.of<CatsCubit>(context).fetchData();
+                              }
+                              if(name.length > 3){
+                                BlocProvider.of<CatsCubit>(context).searchCat(name);
+                              }
+                            },
                           ),
                           const SizedBox(
                             height: 5,
